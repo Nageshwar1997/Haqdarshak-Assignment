@@ -2,6 +2,8 @@
 
 Haqdarshak Software Engineer case study, option **S1**.
 
+**Repository:** https://github.com/Nageshwar1997/Haqdarshak-Assignment
+
 This app keeps scheme records safe while they change. **State reviewers** prepare drafts and **Central reviewers** approve them. The agent app keeps seeing the last approved version until a new one is approved. Every field change is logged with its source. A change to a shared eligibility rule never silently changes a published scheme.
 
 **Stack:** MongoDB (Mongoose), Express, React (Vite), Node.js, all in TypeScript.
@@ -19,8 +21,10 @@ This app keeps scheme records safe while they change. **State reviewers** prepar
 ### Steps
 
 ```bash
-git clone <this-repo-url>
-cd <repo-folder>
+git clone https://github.com/Nageshwar1997/Haqdarshak-Assignment.git
+
+if not in correct dir
+cd Haqdarshak-Assignment
 npm install
 ```
 
