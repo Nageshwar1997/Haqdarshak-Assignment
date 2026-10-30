@@ -1,0 +1,23 @@
+{
+  "name": "scheme-kb-client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "React UI for the Scheme Knowledge Base (agent view and reviewer workspace)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}
