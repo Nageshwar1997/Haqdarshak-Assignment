@@ -1,0 +1,20 @@
+{
+  "name": "scheme-knowledge-base",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Haqdarshak case study S1: review and publish backend for scheme records (MERN stack)",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm run build && npm start --prefix server",
+    "demo": "npm run demo --prefix server",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6"
+  }
+}

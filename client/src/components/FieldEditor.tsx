@@ -32,6 +32,10 @@ function formFor(field: string, record: FieldRecord | undefined, type: FieldType
     return { field, status: 'found', value: '', evidence: blankEvidence(), confidence: '0.9', note: '', candidates: [blankCandidate(), blankCandidate()] };
   }
   const candidates = (record.candidates ?? []).map((c) => ({ value: toInputText(c.value, type), evidence: { ...c.evidence } }));
+  // If the field is "found" and the reviewer switches to "conflict", the current value becomes candidate 1.
+  if (record.status === 'found' && record.evidence) {
+    candidates.push({ value: toInputText(record.value, type), evidence: { ...record.evidence } });
+  }
   while (candidates.length < 2) candidates.push(blankCandidate());
   return {
     field,

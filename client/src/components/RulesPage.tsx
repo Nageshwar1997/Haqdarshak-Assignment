@@ -53,7 +53,7 @@ function RuleCard({ rule, canChange, onChanged }: { rule: RuleSummary; canChange
       }
       extra={
         canChange && !editing ? (
-          <button type="button" className="btn btn-small" onClick={() => setEditing(true)}>
+          <button type="button" className="btn btn-small" onClick={() => setEditing(true)} aria-label={`Change rule ${rule.code}`}>
             Change rule
           </button>
         ) : undefined

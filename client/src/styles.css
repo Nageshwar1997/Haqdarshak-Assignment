@@ -200,6 +200,7 @@ code {
   display: flex;
   gap: 4px;
   overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .tab {
@@ -481,6 +482,11 @@ tbody tr:last-child td {
 
 tbody th {
   font-weight: 600;
+}
+
+/* scheme references like SYN-MH-002 stay on one line */
+td > a {
+  white-space: nowrap;
 }
 
 .row-selected td {

@@ -37,7 +37,7 @@ export function DraftPanel({ schemeRef, open, live, rules, events, onChanged }: 
           Open version v{open.version_no} <Badge status={open.status} />
         </>
       }
-      extra={<Needs role="STATE_REVIEWER" />}
+      extra={open.status === 'draft' ? <Needs role="STATE_REVIEWER" /> : undefined}
     >
       <p className="meta-line">
         Revision {open.revision} · started {formatWhen(open.created_at)} by {shortName(users, open.created_by)}

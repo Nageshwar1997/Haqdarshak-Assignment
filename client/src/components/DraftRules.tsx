@@ -19,12 +19,13 @@ type Props = {
 
 export function DraftRules({ schemeRef, draft, rules, editable, onChanged }: Props) {
   const { user } = useApp();
-  const remove = useAction();
+  // One status line for attach and remove, so only the latest result is shown.
+  const action = useAction();
   const codes = Object.keys(draft.rules);
 
   async function handleRemove(code: string) {
     if (!user) return;
-    const ok = await remove.run(() => api.removeRule(user.id, schemeRef, code));
+    const ok = await action.run(() => api.removeRule(user.id, schemeRef, code), `Removed ${code} from this draft.`);
     if (ok) onChanged();
   }
 
@@ -56,7 +57,7 @@ export function DraftRules({ schemeRef, draft, rules, editable, onChanged }: Pro
                   )}
                 </div>
                 {editable && (
-                  <button type="button" className="btn btn-small btn-danger" onClick={() => handleRemove(code)} disabled={remove.busy}>
+                  <button type="button" className="btn btn-small btn-danger" onClick={() => handleRemove(code)} disabled={action.busy}>
                     Remove rule
                   </button>
                 )}
@@ -65,21 +66,22 @@ export function DraftRules({ schemeRef, draft, rules, editable, onChanged }: Pro
           })}
         </ul>
       )}
-      <Alert error={remove.error} />
-      {editable && <AttachRule schemeRef={schemeRef} draft={draft} rules={rules} onChanged={onChanged} />}
+      {editable && <AttachRule schemeRef={schemeRef} draft={draft} rules={rules} action={action} onChanged={onChanged} />}
+      <Alert error={action.error} success={action.done} />
     </>
   );
 }
 
-function AttachRule({ schemeRef, draft, rules, onChanged }: Omit<Props, 'editable'>) {
+type AttachProps = Omit<Props, 'editable'> & { action: ReturnType<typeof useAction> };
+
+function AttachRule({ schemeRef, draft, rules, action, onChanged }: AttachProps) {
   const { user } = useApp();
   const [code, setCode] = useState('');
-  const attach = useAction();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!user || !code) return;
-    const v = await attach.run(
+    const v = await action.run(
       () => api.attachRule(user.id, schemeRef, code),
       (result) => `${code} is attached at v${result.rules[code]}.`,
     );
@@ -109,10 +111,9 @@ function AttachRule({ schemeRef, draft, rules, onChanged }: Omit<Props, 'editabl
           })}
         </select>
       </label>
-      <button type="submit" className="btn" disabled={attach.busy || !code}>
-        {attach.busy ? 'Attaching…' : 'Attach rule'}
+      <button type="submit" className="btn" disabled={action.busy || !code}>
+        {action.busy ? 'Working…' : 'Attach rule'}
       </button>
-      <Alert error={attach.error} success={attach.done} />
     </form>
   );
 }

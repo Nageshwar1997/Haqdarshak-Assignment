@@ -12,7 +12,7 @@ export function ReviewQueuePage() {
 
   return (
     <>
-      {!hasRole(user, 'CENTRAL_REVIEWER') && (
+      {user && !hasRole(user, 'CENTRAL_REVIEWER') && (
         <Note>Only Central reviewers act on this queue. You can look, but pick a Central reviewer in "Acting as" to approve.</Note>
       )}
       {queue.loading && !q && <Loading what="Loading review queue" />}
