@@ -56,9 +56,9 @@ This builds the React app and starts the server. Then open **http://localhost:30
    ```
    MONGODB_URI=mongodb+srv://<user>:<password>@<cluster-host>/
    ```
-   `server/.env` is in `.gitignore`, so your password never goes to GitHub.
+   `server/.env` is in `.gitignore`, so your password never goes to GitHub. The server reads this file by itself when it starts. The name `MONGODB_URI` works too.
 3. In Atlas, allow your IP address under **Network Access**.
-4. Run `npm start`. The server uses the `scheme_kb` database. It loads the synthetic data only if that database is empty.
+4. Run `npm start`. The log should say `MongoDB: connected to ..., database "scheme_kb"`. If your connection string names no database, the server uses `scheme_kb` (you can change this with `MONGODB_DB`). It loads the synthetic data only if that database is empty.
 
 The database must be a replica set, because publishing uses transactions. Atlas always is. `npm run demo` always uses its own in-memory MongoDB, so it never touches your database. **Reset demo data** in the app *does* wipe and reload the `scheme_kb` database you are connected to.
 

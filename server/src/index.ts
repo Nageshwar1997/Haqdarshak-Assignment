@@ -1,10 +1,11 @@
 // Starts the API: connect to MongoDB, load the synthetic data into an empty database, then listen.
-// Run: npm start   (PORT=4000 npm start to change the port, MONGODB_URI=... to use your own MongoDB replica set)
+// Run: npm start   (PORT=4000 npm start to change the port; put MONGODB_URI in server/.env to use your own MongoDB)
 import { createApp } from './app.ts';
-import { connect, disconnect } from './db.ts';
+import { connect, disconnect, loadEnv } from './db.ts';
 import { UserModel } from './models.ts';
 import { seed } from './seed.ts';
 
+loadEnv(); // before reading PORT or MONGODB_URI, so server/.env can set them
 const PORT = Number(process.env.PORT ?? 3000);
 
 await connect();
